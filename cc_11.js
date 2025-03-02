@@ -124,4 +124,35 @@ console.log(book1.getDetails());
 console.log(borrower1.borrowedBooks);
 // Expected: ["The Great Gatsby"]
 
+// TASK 5: Implementing Book Returns
+
+
+// We add returnBook(borrowerId, isbn) to the Library class via prototype
+Library.prototype.returnBook = function (borrowerId, isbn) {
+  const book = this.books.find((b) => b.isbn === isbn);
+  const borrower = this.borrowers.find((br) => br.borrowerId === borrowerId);
+
+  if (!book) {
+    console.log("Book not found in the library.");
+    return;
+  }
+  if (!borrower) {
+    console.log("Borrower not found in the system.");
+    return;
+  }
+
+  // Increase the book's copies by 1
+  book.updateCopies(1);
+  // Remove the book from the borrower's borrowedBooks
+  borrower.returnBook(book.title);
+};
+
+// --- Test Cases for Task 5 ---
+library.returnBook(201, 123456);
+console.log(book1.getDetails());
+// Expected: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 4"
+console.log(borrower1.borrowedBooks);
+// Expected: []
+
+
 
